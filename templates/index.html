@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Inventario SVV</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/antd@4.24.12/dist/antd.min.css" />
+</head>
+<body style="padding: 50px">
+
+  <div id="app">
+    <h1>Inventario SVV</h1>
+
+    <div style="margin-bottom: 20px;">
+      <button class="ant-btn ant-btn-primary">Agregar nuevo item</button>
+    </div>
+
+    <table class="ant-table">
+      <thead class="ant-table-thead">
+        <tr>
+          <th>ID</th>
+          <th>Nombre</th>
+          <th>Categoría</th>
+          <th>Cantidad</th>
+          <th>Ubicación</th>
+        </tr>
+      </thead>
+      <tbody class="ant-table-tbody" id="item-body">
+        <!-- Aquí se insertan las filas por JavaScript -->
+      </tbody>
+    </table>
+  </div>
+
+  <script>
+    // Cargar datos desde tu API Flask
+    fetch('/items')
+      .then(res => res.json())
+      .then(data => {
+        const tbody = document.getElementById('item-body');
+        data.forEach(item => {
+          const row = `<tr>
+            <td>${item.id}</td>
+            <td>${item.nombre}</td>
+            <td>${item.categoria}</td>
+            <td>${item.cantidad}</td>
+            <td>${item.ubicacion}</td>
+          </tr>`;
+          tbody.insertAdjacentHTML('beforeend', row);
+        });
+      });
+  </script>
+</body>
+</html>
+
